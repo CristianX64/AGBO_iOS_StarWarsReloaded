@@ -8,18 +8,18 @@
 
 import UIKit
 
-class DTCStarWarsCharacter: NSObject {
+class DTCStarWarsCharacter {
     
     // Properties
     var name:String
     var alias:String
-    var image:UIImage
-    var sound:NSData
-    var url:NSURL
+    var image:UIImage?
+    var sound:String
+    var url:String
     
     
-    // Inits
-    init(name:String, alias:String, image:UIImage, sound:NSData, url:NSURL){
+    // Inits    
+    init(name:String, alias:String, image:UIImage?, sound:String, url:String){
         self.name = name
         self.alias = alias
         self.image = image

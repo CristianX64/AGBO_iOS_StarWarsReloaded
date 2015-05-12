@@ -13,11 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        
+        // Load app with custom VC
+        var vaderImage = UIImage(named: "darthVader.jpg")
+        
+        var vaderCharacter = DTCStarWarsCharacter(name: "Anakin Skywalker",
+            alias: "Darth Vader",
+            image:vaderImage,
+            sound: "vader",
+            url: "http://en.wikipedia.org/wiki/Darth_Vader")
+        
+        var characterVC = DTCCharacterViewController(model: vaderCharacter)
+        var characterNavVC = UINavigationController(rootViewController: characterVC)
+        self.window?.rootViewController = characterNavVC
+        
         // Override point for customization after application launch.
-        self.window!.backgroundColor = UIColor.redColor()
+        //self.window!.backgroundColor = UIColor.redColor()
+        
         self.window!.makeKeyAndVisible()
         return true
     }

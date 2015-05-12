@@ -26,6 +26,8 @@
 		59F84E031B028DF40071272C /* vader.caf in Resources */ = {isa = PBXBuildFile; fileRef = 59F84DFC1B028DF40071272C /* vader.caf */; };
 		59F84E041B028DF40071272C /* yoda.caf in Resources */ = {isa = PBXBuildFile; fileRef = 59F84DFD1B028DF40071272C /* yoda.caf */; };
 		59F84E061B028F770071272C /* DTCStarWarsCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F84E051B028F770071272C /* DTCStarWarsCharacter.swift */; };
+		59F84E091B0298140071272C /* DTCCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F84E071B0298140071272C /* DTCCharacterViewController.swift */; };
+		59F84E0A1B0298140071272C /* DTCCharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F84E081B0298140071272C /* DTCCharacterViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		59F84DFC1B028DF40071272C /* vader.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = vader.caf; sourceTree = "<group>"; };
 		59F84DFD1B028DF40071272C /* yoda.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yoda.caf; sourceTree = "<group>"; };
 		59F84E051B028F770071272C /* DTCStarWarsCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCStarWarsCharacter.swift; sourceTree = "<group>"; };
+		59F84E071B0298140071272C /* DTCCharacterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCCharacterViewController.swift; sourceTree = "<group>"; };
+		59F84E081B0298140071272C /* DTCCharacterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DTCCharacterViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 		59F84DE51B028D610071272C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				59F84E071B0298140071272C /* DTCCharacterViewController.swift */,
+				59F84E081B0298140071272C /* DTCCharacterViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				59F84E031B028DF40071272C /* vader.caf in Resources */,
 				59F84DF01B028DE30071272C /* c3po.jpg in Resources */,
 				59F84DCB1B028CC00071272C /* Images.xcassets in Resources */,
+				59F84E0A1B0298140071272C /* DTCCharacterViewController.xib in Resources */,
 				59F84E041B028DF40071272C /* yoda.caf in Resources */,
 				59F84DF21B028DE30071272C /* darthVader.jpg in Resources */,
 				59F84E001B028DF40071272C /* palpatine.caf in Resources */,
@@ -313,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59F84E061B028F770071272C /* DTCStarWarsCharacter.swift in Sources */,
+				59F84E091B0298140071272C /* DTCCharacterViewController.swift in Sources */,
 				59F84DC91B028CC00071272C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
