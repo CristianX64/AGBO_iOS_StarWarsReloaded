@@ -16,18 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
+        //var characterVC = DTCCharacterViewController(model: vaderCharacter)
         
-        // Load app with custom VC
-        var vaderImage = UIImage(named: "darthVader.jpg")
-        
-        var vaderCharacter = DTCStarWarsCharacter(name: "Anakin Skywalker",
-            alias: "Darth Vader",
-            image:vaderImage,
-            sound: "vader",
-            url: "http://en.wikipedia.org/wiki/Darth_Vader")
-        
-        var characterVC = DTCCharacterViewController(model: vaderCharacter)
-        var characterNavVC = UINavigationController(rootViewController: characterVC)
+        var starWarsModel = DTCStarWarsUniverse()
+        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: starWarsModel)
+        var characterNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
         self.window?.rootViewController = characterNavVC
         
         // Override point for customization after application launch.
@@ -60,5 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    
+    // MARK: - Utils
+    
+    func initModel(){
+        
+    }
+    
 }
 

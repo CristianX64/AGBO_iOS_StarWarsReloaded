@@ -26,4 +26,12 @@ class DTCStarWarsCharacter {
         self.sound = sound
         self.url = url
     }
+    
+    init(alias:String, image:UIImage?, sound:String, url:String){
+        self.name = ""
+        self.alias = alias
+        self.image = image
+        self.sound = sound
+        self.url = url
+    }
 }
