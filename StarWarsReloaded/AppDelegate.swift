@@ -17,13 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
         // Star Wars universe
-        var starWarsModel = DTCStarWarsUniverse()
-        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: starWarsModel)
+        var starWarsUniverseModel = DTCStarWarsUniverse()
+        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: starWarsUniverseModel)
         
         
         // First character to be displayed is the first in _imperials Array
         // It will be the delegate for UISplitView
-        var characterVC = DTCCharacterViewController(model: starWarsModel._imperials[0])
+        var characterVC = DTCCharacterViewController(model: starWarsUniverseModel._imperials[0])
         
         
         // Combiners
@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Delegates
         splitVC.delegate = characterVC
+        starWarsUniverseVC.delegate = characterVC
         
         // SplitVC will be the rootVC in the app
         self.window?.rootViewController = splitVC

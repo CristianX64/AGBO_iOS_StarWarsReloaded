@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
-class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegate {
+class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegate, DTCStarWarsUniverseViewControllerDelegate {
 
     // MAKE - Properties
     var model:DTCStarWarsCharacter
@@ -50,7 +50,7 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
     // MARK: - Sync UI
     func syncViewWithModel(){
         imageView.image = self.model.image
-        self.title = self.model.name
+        self.title = self.model.alias
     }
 
     
@@ -86,5 +86,14 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
         }
     }
     
+    
+    // MARK: - DTCStarWarsUniverseViewControllerDelegate
+    func starWarsUniverseViewController(swvc: DTCStarWarsUniverseViewController, didSelectCharacter: DTCStarWarsCharacter){
+    
+        println("Hey... our VC is working!")
+        // Update UI with new model
+        self.model = didSelectCharacter
+        syncViewWithModel()
+    }
     
 }

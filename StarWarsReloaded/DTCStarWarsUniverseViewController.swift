@@ -12,10 +12,21 @@ let imperialSection:Int = 0
 let rebelSection:Int = 1
 let kCellIdentifier = "CellIdentifier"
 
+
+// MARK: - Protocol definition
+// Setup custom protocol with a method so we let the characterVC know that a new character has been tapped
+protocol DTCStarWarsUniverseViewControllerDelegate{
+    
+    // Functions
+    func starWarsUniverseViewController(swvc: DTCStarWarsUniverseViewController, didSelectCharacter: DTCStarWarsCharacter)
+}
+
+// MARK: - Class definition
 class DTCStarWarsUniverseViewController: UITableViewController {
 
     // MAKE - Properties
     var model:DTCStarWarsUniverse
+    var delegate:DTCCharacterViewController?
     
     
     // INIT
@@ -92,7 +103,12 @@ class DTCStarWarsUniverseViewController: UITableViewController {
     
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // Get current character
         var character:DTCStarWarsCharacter = characterAtIndexPath(indexPath)
+        
+        // Ask characterVC to upload the model through a protocol method
+        delegate?.starWarsUniverseViewController(self, didSelectCharacter: character)        
     }
 
     
@@ -109,50 +125,4 @@ class DTCStarWarsUniverseViewController: UITableViewController {
             return character
         }
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

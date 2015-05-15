@@ -86,7 +86,7 @@ class DTCStarWarsUniverse {
             url: "http://en.wikipedia.org/wiki/Yoda")
         
         // R2-D2
-        var r2d2Image = UIImage(named: "darthVader.jpg")
+        var r2d2Image = UIImage(named: "R2-D2.jpg")
         var r2d2Character = DTCStarWarsCharacter(
             alias: "R2-D2",
             image:r2d2Image,
