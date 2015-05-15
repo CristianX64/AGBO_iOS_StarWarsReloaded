@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
-class DTCCharacterViewController: UIViewController, AVAudioPlayerDelegate {
+class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegate {
 
     // MAKE - Properties
     var model:DTCStarWarsCharacter
@@ -33,6 +33,9 @@ class DTCCharacterViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set left (or right) button item that shows or hides the table
+        self.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         
         // Sync view with model data
         syncViewWithModel()
@@ -71,5 +74,17 @@ class DTCCharacterViewController: UIViewController, AVAudioPlayerDelegate {
     @IBAction func goToWikipedia(sender: AnyObject) {
         
     }
+    
+    
+    // MARK - UISplitViewControllerDelegate
+    func splitViewController(svc: UISplitViewController, willChangeToDisplayMode displayMode: UISplitViewControllerDisplayMode) {
+        if(displayMode == UISplitViewControllerDisplayMode.PrimaryHidden){
+            self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+        }
+        else{
+            self.navigationItem.leftBarButtonItem = nil
+        }
+    }
+    
     
 }

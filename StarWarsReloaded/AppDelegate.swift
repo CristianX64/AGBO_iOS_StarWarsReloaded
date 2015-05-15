@@ -15,13 +15,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        //var characterVC = DTCCharacterViewController(model: vaderCharacter)
-        
+
+        // Star Wars universe
         var starWarsModel = DTCStarWarsUniverse()
         var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: starWarsModel)
-        var characterNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
-        self.window?.rootViewController = characterNavVC
+        
+        
+        // First character to be displayed is the first in _imperials Array
+        // It will be the delegate for UISplitView
+        var characterVC = DTCCharacterViewController(model: starWarsModel._imperials[0])
+        
+        
+        // Combiners
+        var universeNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
+        var characterNavVC = UINavigationController(rootViewController: characterVC)
+        var splitVC = UISplitViewController()
+        splitVC.viewControllers = [universeNavVC,characterNavVC]
+        
+        // Delegates
+        splitVC.delegate = characterVC
+        
+        // SplitVC will be the rootVC in the app
+        self.window?.rootViewController = splitVC
         
         // Override point for customization after application launch.
         //self.window!.backgroundColor = UIColor.redColor()
