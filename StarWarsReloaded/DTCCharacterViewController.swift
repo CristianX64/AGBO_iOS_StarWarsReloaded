@@ -12,7 +12,7 @@ import AVFoundation
 
 class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegate, DTCStarWarsUniverseViewControllerDelegate {
 
-    // MAKE - Properties
+    // MARK - Properties
     var model:DTCStarWarsCharacter
     var audioPlayer: AVAudioPlayer?
     
@@ -20,7 +20,7 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
     @IBOutlet weak var imageView: UIImageView!
 
     
-    // INIT
+    // MARK: - Init
     init(model: DTCStarWarsCharacter){
         self.model = model
         super.init(nibName: "DTCCharacterViewController", bundle: nil)
@@ -55,6 +55,8 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
 
     
     // MARK: - Action methods    
+    
+    // Plays character's sound when tapping play button
     @IBAction func playSound(sender: AnyObject) {
 
         let path = NSBundle.mainBundle().pathForResource(self.model.sound, ofType:"caf")
@@ -70,9 +72,10 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
         }
     }
     
-    
+    // Display character's info in Wikipedia when tapping wiki button
     @IBAction func goToWikipedia(sender: AnyObject) {
-        
+        var wikiVC:DTCWikiViewController = DTCWikiViewController(model: self.model)
+        self.navigationController?.pushViewController(wikiVC, animated: true)
     }
     
     
