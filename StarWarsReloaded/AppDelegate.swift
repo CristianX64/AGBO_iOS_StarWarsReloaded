@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Star Wars universe
         var starWarsUniverseModel = DTCStarWarsUniverse()
         
-        
         if(UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad){
             // Configure for pads
             configureForPadWithModel(starWarsUniverseModel)
@@ -28,11 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Configure for phones
             configureForPhoneWithModel(starWarsUniverseModel)
         }
-        
-        
-        
-        // Override point for customization after application launch.
-        //self.window!.backgroundColor = UIColor.redColor()
         
         self.window!.makeKeyAndVisible()
         return true
@@ -71,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // First character to be displayed is the first in _imperials Array
         // It will be the delegate for UISplitView
-        var characterVC = DTCCharacterViewController(model: model._imperials[0])
+        var lastCharacter:DTCStarWarsCharacter = lastSelectedCharacterInUniverse(model)
+        var characterVC = DTCCharacterViewController(model: lastCharacter)
         
         // Combiners
         var universeNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
@@ -97,6 +93,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Table with characters will be the rootVC
         self.window?.rootViewController = universeNavVC
-    }    
+    }
+    
+    // Get the last selected character that was saved to NSUserDefaults
+    func lastSelectedCharacterInUniverse(universe: DTCStarWarsUniverse) -> DTCStarWarsCharacter{
+
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var section = defaults.integerForKey(lastCharacterSection)
+        var row = defaults.integerForKey(lastCharacterRow)
+        
+        if(section == imperialSection){
+            var character = universe.imperialAtIndex(row)
+            return character
+        }
+        else{
+            var character = universe.rebelAtIndex(row)
+            return character
+        }
+    }
+    
 }
 

@@ -76,8 +76,8 @@ class DTCWikiViewController: UIViewController,UIWebViewDelegate {
         activityView?.hidden = false
         activityView?.startAnimating()
         
+        // Load url in browser
         var url:NSURL? = NSURL(string:self.model.url)
-        
         if let aURL = url{
             var req:NSURLRequest? = NSURLRequest(URL: aURL)
             
@@ -143,5 +143,4 @@ class DTCWikiViewController: UIViewController,UIWebViewDelegate {
             syncViewWithModel()
         }
     }
-    
 }

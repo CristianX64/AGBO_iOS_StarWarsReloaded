@@ -11,6 +11,8 @@ import UIKit
 let imperialSection:Int = 0
 let rebelSection:Int = 1
 let kCellIdentifier = "CellIdentifier"
+let lastCharacterSection = "LAST_SELECTED_SECTION"
+let lastCharacterRow = "LAST_SELECTED_ROW"
 
 
 
@@ -117,6 +119,9 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
         
         // Sent a notification to let know that the model changed
         notifyThatCharacterDidChange(character)
+        
+        // Save last selected character to NSUserDefaults
+        saveLastCharacter(indexPath)
     }
 
     
@@ -154,5 +159,13 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
         self.navigationController?.pushViewController(characterVC, animated: true)
     }
     
+    // MARK: - Save to disk
+    func saveLastCharacter(indexPath: NSIndexPath){
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setInteger(indexPath.section, forKey: lastCharacterSection)
+        defaults.setInteger(indexPath.row, forKey: lastCharacterRow)
+        
+        defaults.synchronize()
+    }
     
 }
