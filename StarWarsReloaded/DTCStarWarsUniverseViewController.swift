@@ -13,6 +13,7 @@ let rebelSection:Int = 1
 let kCellIdentifier = "CellIdentifier"
 
 
+
 // MARK: - Protocol definition
 // Setup custom protocol with a method so we let the characterVC know that a new character has been tapped
 protocol DTCStarWarsUniverseViewControllerDelegate{
@@ -45,6 +46,9 @@ class DTCStarWarsUniverseViewController: UITableViewController {
         self.title = "Star Wars Reloaded"
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
+        
+        // This will remove extra separators from tableview
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
     override func didReceiveMemoryWarning() {
@@ -108,7 +112,10 @@ class DTCStarWarsUniverseViewController: UITableViewController {
         var character:DTCStarWarsCharacter = characterAtIndexPath(indexPath)
         
         // Ask characterVC to upload the model through a protocol method
-        delegate?.starWarsUniverseViewController(self, didSelectCharacter: character)        
+        delegate?.starWarsUniverseViewController(self, didSelectCharacter: character)
+        
+        // Sent a notification to let know that the model changed
+        notifyThatCharacterDidChange(character)
     }
 
     
@@ -124,5 +131,16 @@ class DTCStarWarsUniverseViewController: UITableViewController {
             var character:DTCStarWarsCharacter = self.model.rebelAtIndex(indexPath.row)
             return character
         }
+    }
+    
+    
+    
+    // MARK: - Notifications
+    
+    // Notification to let know that the model changed
+    func notifyThatCharacterDidChange(character: DTCStarWarsCharacter){
+        var notification:NSNotification = NSNotification(name: characterDidChangeNotificationName, object: self, userInfo: [characterDidChangeNotificationKey:character])
+        
+        NSNotificationCenter.defaultCenter().postNotification(notification)
     }
 }

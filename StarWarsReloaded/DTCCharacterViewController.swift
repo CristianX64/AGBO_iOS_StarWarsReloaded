@@ -92,8 +92,6 @@ class DTCCharacterViewController: UIViewController, UISplitViewControllerDelegat
     
     // MARK: - DTCStarWarsUniverseViewControllerDelegate
     func starWarsUniverseViewController(swvc: DTCStarWarsUniverseViewController, didSelectCharacter: DTCStarWarsCharacter){
-    
-        println("Hey... our VC is working!")
         // Update UI with new model
         self.model = didSelectCharacter
         syncViewWithModel()
