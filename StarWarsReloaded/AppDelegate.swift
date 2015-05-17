@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // Custom UI
+        customizeAppearance()
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
         // Star Wars universe
@@ -109,6 +113,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else{
             var character = universe.rebelAtIndex(row)
             return character
+        }
+    }
+    
+    // Custom UI
+    func customizeAppearance(){
+
+        // Custom colors
+        var darkOrangeColor = UIColor(red: 233.0/255.0, green: 154.0/255.0, blue: 50.0/255.0, alpha: 1)
+        var lightOrangeColor = UIColor(red: 255.0/255.0, green: 210.0/255.0, blue: 150.0/255.0, alpha: 1)
+        var whiteColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1)
+        var lightGrayColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
+        var darkGrayColor = UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1)
+        
+        
+        // Shadow for the Navigation title
+        var titleShadow = NSShadow();
+        titleShadow.shadowColor = darkGrayColor;
+        titleShadow.shadowOffset = CGSizeMake(1, 1)
+        
+        // Background and font for headers and footers of tables
+        UITableViewHeaderFooterView.appearance().tintColor = lightOrangeColor
+        UILabel.appearance().font = UIFont(name: "Avenir", size: 16)
+        UIToolbar.appearance().barTintColor = lightOrangeColor
+        UIToolbar.appearance().tintColor = darkOrangeColor
+        UINavigationBar.appearance().barTintColor = darkOrangeColor
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().tintColor = darkGrayColor
+        
+        if(UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad){
+            
+            var font:UIFont? = UIFont(name: "Starjedi", size: 20)
+            if let jediFont = font{
+                var barTextAttributes:NSDictionary = NSDictionary(objectsAndKeys: jediFont,NSFontAttributeName, whiteColor, NSForegroundColorAttributeName, titleShadow, NSShadowAttributeName)
+                UINavigationBar.appearance().titleTextAttributes = barTextAttributes as [NSObject : AnyObject]
+            }
+        }
+        else{
+            var font:UIFont? = UIFont(name: "Starjedi", size: 14)
+            if let jediFont = font{
+                var barTextAttributes:NSDictionary = NSDictionary(objectsAndKeys: jediFont,NSFontAttributeName, whiteColor, NSForegroundColorAttributeName, titleShadow, NSShadowAttributeName)
+                UINavigationBar.appearance().titleTextAttributes = barTextAttributes as [NSObject : AnyObject]
+            }
         }
     }
     

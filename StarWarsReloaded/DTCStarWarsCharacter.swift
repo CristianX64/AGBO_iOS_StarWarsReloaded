@@ -11,14 +11,16 @@ import UIKit
 class DTCStarWarsCharacter {
     
     // Properties
-    var name:String
-    var alias:String
-    var image:UIImage?
-    var sound:String
-    var url:String
+    var name:String = ""
+    var alias:String = ""
+    var image:UIImage? = nil
+    var sound:String = ""
+    var url:String = ""
     
     
     // Inits    
+    init(){}
+    
     init(name:String, alias:String, image:UIImage?, sound:String, url:String){
         self.name = name
         self.alias = alias

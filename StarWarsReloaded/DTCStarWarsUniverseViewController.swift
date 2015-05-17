@@ -16,6 +16,7 @@ let lastCharacterRow = "LAST_SELECTED_ROW"
 
 
 
+
 // MARK: - Protocol definition
 // Setup custom protocol with a method so we let the characterVC know that a new character has been tapped
 protocol DTCStarWarsUniverseViewControllerDelegate{
@@ -47,7 +48,11 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
         super.viewDidLoad()
         self.title = "Star Wars Reloaded"
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
+        //Register our custom cell as the cell to use in the table view
+        var nib:UINib = UINib(nibName: "DTCTableViewCell", bundle: NSBundle.mainBundle())
+        self.tableView.registerNib(nib, forCellReuseIdentifier: DTCTableViewCell.cellId)
+        
+        self.tableView.backgroundColor = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 1)
         
         // This will remove extra separators from tableview
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -66,7 +71,7 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
         return 2
     }
     
-    
+    // Number of rows for each section
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == imperialSection){
             return self.model.imperialCount;
@@ -75,22 +80,28 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
             return self.model.rebelCount;
         }
     }
-
     
+    // Custom height for cell
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return DTCTableViewCell.height
+    }
+
+    // Character to be displayed when a cell is tapped
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         // Model for indexPath
         var character:DTCStarWarsCharacter = characterAtIndexPath(indexPath)
         
         // Configure the cell for indexPath
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kCellIdentifier)            
-        cell.imageView?.image = character.image
-        cell.textLabel?.text = character.alias
-        cell.detailTextLabel?.text = character.name
-
-        // Make sure the constraints have been added to this cell, since it may have just been created from scratch
-        cell.setNeedsUpdateConstraints()
-        cell.updateConstraintsIfNeeded()
+        let cell:DTCTableViewCell = tableView.dequeueReusableCellWithIdentifier(DTCTableViewCell.cellId) as! DTCTableViewCell
+        cell.picture?.image = character.image
+        cell.alias?.text = character.alias
+        if(character.name==""){
+            cell.name?.text = "Unknown name"
+        }
+        else{
+            cell.name?.text = character.name
+        }
             
         return cell
     }
@@ -110,6 +121,9 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        // Deselect highlighted
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
         // Get current character
         var character:DTCStarWarsCharacter = characterAtIndexPath(indexPath)
         
@@ -122,6 +136,9 @@ class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniver
         
         // Save last selected character to NSUserDefaults
         saveLastCharacter(indexPath)
+        
+        // Reload the affected row
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
     }
 
     
