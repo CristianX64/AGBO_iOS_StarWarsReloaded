@@ -18,26 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Star Wars universe
         var starWarsUniverseModel = DTCStarWarsUniverse()
-        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: starWarsUniverseModel)
         
         
-        // First character to be displayed is the first in _imperials Array
-        // It will be the delegate for UISplitView
-        var characterVC = DTCCharacterViewController(model: starWarsUniverseModel._imperials[0])
+        if(UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad){
+            // Configure for pads
+            configureForPadWithModel(starWarsUniverseModel)
+        }
+        else{
+            // Configure for phones
+            configureForPhoneWithModel(starWarsUniverseModel)
+        }
         
         
-        // Combiners
-        var universeNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
-        var characterNavVC = UINavigationController(rootViewController: characterVC)
-        var splitVC = UISplitViewController()
-        splitVC.viewControllers = [universeNavVC,characterNavVC]
-        
-        // Delegates
-        splitVC.delegate = characterVC
-        starWarsUniverseVC.delegate = characterVC
-        
-        // SplitVC will be the rootVC in the app
-        self.window?.rootViewController = splitVC
         
         // Override point for customization after application launch.
         //self.window!.backgroundColor = UIColor.redColor()
@@ -70,11 +62,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     
-    // MARK: - Utils
+    // MARK: - Settings
     
-    func initModel(){
+    // Pad models
+    func configureForPadWithModel(model: DTCStarWarsUniverse){
         
+        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: model)
+        
+        // First character to be displayed is the first in _imperials Array
+        // It will be the delegate for UISplitView
+        var characterVC = DTCCharacterViewController(model: model._imperials[0])
+        
+        // Combiners
+        var universeNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
+        var characterNavVC = UINavigationController(rootViewController: characterVC)
+        var splitVC = UISplitViewController()
+        splitVC.viewControllers = [universeNavVC,characterNavVC]
+        
+        // Delegates
+        splitVC.delegate = characterVC
+        starWarsUniverseVC.delegate = characterVC
+        
+        // SplitVC will be the rootVC in the app
+        self.window?.rootViewController = splitVC
     }
     
+    // Phone models => table auto-delegate
+    func configureForPhoneWithModel(model: DTCStarWarsUniverse){
+        
+        var starWarsUniverseVC = DTCStarWarsUniverseViewController(model: model)
+        var universeNavVC = UINavigationController(rootViewController: starWarsUniverseVC)
+        
+        starWarsUniverseVC.delegate = starWarsUniverseVC
+        
+        // Table with characters will be the rootVC
+        self.window?.rootViewController = universeNavVC
+    }    
 }
 

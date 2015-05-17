@@ -23,11 +23,11 @@ protocol DTCStarWarsUniverseViewControllerDelegate{
 }
 
 // MARK: - Class definition
-class DTCStarWarsUniverseViewController: UITableViewController {
+class DTCStarWarsUniverseViewController: UITableViewController,DTCStarWarsUniverseViewControllerDelegate {
 
-    // MAKE - Properties
+    // MAKE - Properties: model and delegate
     var model:DTCStarWarsUniverse
-    var delegate:DTCCharacterViewController?
+    var delegate:DTCStarWarsUniverseViewControllerDelegate?
     
     
     // INIT
@@ -112,7 +112,8 @@ class DTCStarWarsUniverseViewController: UITableViewController {
         var character:DTCStarWarsCharacter = characterAtIndexPath(indexPath)
         
         // Ask characterVC to upload the model through a protocol method
-        delegate?.starWarsUniverseViewController(self, didSelectCharacter: character)
+        // For phones, auto-delegate
+        delegate?.starWarsUniverseViewController(self,didSelectCharacter:character)
         
         // Sent a notification to let know that the model changed
         notifyThatCharacterDidChange(character)
@@ -143,4 +144,15 @@ class DTCStarWarsUniverseViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().postNotification(notification)
     }
+    
+    
+    // MARK: - DTCStarWarsUniverseViewControllerDelegate
+    func starWarsUniverseViewController(swvc: DTCStarWarsUniverseViewController, didSelectCharacter: DTCStarWarsCharacter){
+        
+        // Push the characterVC when tapping on a cell in phones
+        var characterVC:DTCCharacterViewController = DTCCharacterViewController(model: didSelectCharacter)
+        self.navigationController?.pushViewController(characterVC, animated: true)
+    }
+    
+    
 }
