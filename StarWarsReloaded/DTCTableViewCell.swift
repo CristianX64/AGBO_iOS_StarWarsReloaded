@@ -29,7 +29,11 @@ class DTCTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        var width:CGFloat? = self.picture?.frame.size.width
+        if let pictureWidth = width {
+            self.picture?.layer.cornerRadius = pictureWidth/2
+            self.picture?.clipsToBounds = true
+        }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

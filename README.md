@@ -8,6 +8,4 @@ This small app recreates the Star Wars universe in Swift. It contains a list of 
 * Every time a new character is selected, the detailed view is updated with the content of the new selected character.
 * Universal support.
 * Last selected character: the app saves the last selected character so it be first displayed when the app is executed again.
-
-##### Still in progress #####
-* Custom interface.
+* Geek UI.
